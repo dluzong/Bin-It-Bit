@@ -11,6 +11,7 @@ bin_y = 400
 
 #bin options
 bins = ["assets/black-bin.png", "assets/brown-bin.png", "assets/blue-bin.png", "assets/green-bin.png"]
+cloud = "assets/chips.png"
 
   
 # CREATING CANVAS 
