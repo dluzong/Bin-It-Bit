@@ -44,8 +44,10 @@ class Manager:
             val = self.states[self.gameStateManager.get_state()].run() # all classes MUST have the run function to work
             if val == "ending":
                 self.gameStateManager.set_state('ending')
+                self.gameplay.reset_game()
             elif val == "gameOver":
                 self.gameStateManager.set_state('gameOver')
+                self.gameplay.reset_game()
 
             pygame.display.update()
             self.clock.tick(FPS)
@@ -205,8 +207,7 @@ class Ending:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.PLAY_BUTTON.checkForInput(ENDING_MOUSE_POS):
-                    print("go to game")
-                    #self.gameStateManager.set_state('game')
+                    self.gameStateManager.set_state('gameplay')
                 if self.MENU_BUTTON.checkForInput(ENDING_MOUSE_POS):
                     self.gameStateManager.set_state('menu')
                 # if self.QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
@@ -255,7 +256,6 @@ class GameOver:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.INFO_BUTTON.checkForInput(ENDING_MOUSE_POS):
-                    print("go to info")
                     self.gameStateManager.set_state('info')
                 if self.MENU_BUTTON.checkForInput(ENDING_MOUSE_POS):
                     self.gameStateManager.set_state('menu')
