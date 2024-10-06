@@ -1,6 +1,8 @@
 import pygame
 import sys
+
 from cutscenes import *
+from button import Button
 
 SCREENWIDTH, SCREENHEIGHT = 500,700
 FPS = 60
@@ -12,7 +14,7 @@ class Game:
         pygame.display.set_caption("Bin-It-Bit Game")
         self.clock = pygame.time.Clock()
         
-        self.gameStateManager = GameStateManager('cutscene')
+        self.gameStateManager = GameStateManager('menu')
         self.menu = Menu(self.screen, self.gameStateManager)
         self.cutscene = Cutscene(self.screen, self.gameStateManager)
         
@@ -80,6 +82,7 @@ class Menu:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.START_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    print("go to cutscene")
                     self.gameStateManager.set_state('cutscene')
                 if self.INDEX_BUTTON.checkForInput(MENU_MOUSE_POS):
                     print("go to index state")
