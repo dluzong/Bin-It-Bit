@@ -122,6 +122,17 @@ class Menu:
         
         SCREEN.blit(self.BG, (0, 0))
 
+        cloud_1 = pygame.transform.scale(pygame.image.load("assets/cloud-1.png"), (300, 150))
+        SCREEN.blit(cloud_1, (300,130))
+        
+        cloud_2 = pygame.transform.scale(pygame.image.load("assets/cloud-2.png"), (350, 200))
+        SCREEN.blit(cloud_2, (-20,250))
+        
+        cloud_3 = pygame.transform.scale(pygame.image.load("assets/cloud-3.png"), (180, 80))
+        SCREEN.blit(cloud_3, (-30,50))
+        cloud_1_2 = pygame.transform.scale(pygame.image.load("assets/cloud-1.png"), (180, 80))
+        SCREEN.blit(cloud_1_2, (80,80))
+        
         logo = pygame.image.load("assets/game-logo.png")
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
