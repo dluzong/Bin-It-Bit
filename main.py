@@ -4,6 +4,7 @@ import time
 
 from cutscenes import *
 from button import Button
+from sine import *
 
 from game import Game
 
@@ -16,6 +17,7 @@ def get_font(size): # Returns Press-Start-2P in the desired size
 class Manager:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         pygame.display.set_caption("Bin-It-Bit Game")
         self.clock = pygame.time.Clock()
@@ -89,14 +91,20 @@ class Menu:
         self.gameStateManager = gameStateManager
         self.BG = pygame.transform.smoothscale(pygame.image.load("assets/bright-sky.png"), (500, 700))
         
+        # LOADING TRACK
+        pygame.mixer.music.load("assets/tracks/A Hearty Fellow (LOOP).wav")
+        # SET TRACK VOLUME
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+
         #resize button
         img = pygame.image.load("assets/button.png")
         DFLT_IMG_SZ = (187, 71)
 
-        self.START_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(125, 500), text_input="START", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
-        self.INDEX_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(375, 500), text_input="INDEX", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
-        self.INFO_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(125, 620), text_input="INFO", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
-        self.QUIT_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(375, 620), text_input="QUIT", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
+        self.START_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(125, 470), text_input="START", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
+        self.INDEX_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(375, 470), text_input="INDEX", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
+        self.INFO_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(125, 590), text_input="INFO", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
+        self.QUIT_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(375, 590), text_input="QUIT", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
     
     def run(self):
         SCREEN = self.display
@@ -108,7 +116,8 @@ class Menu:
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
         MENU_TEXT = pygame.transform.scale(logo, (500,500))
-        MENU_RECT = MENU_TEXT.get_rect(center=(255, 250))
+        y = sine(200.0, 1280, 10.0, 240)
+        MENU_RECT = MENU_TEXT.get_rect(center=(250, y+30))
         
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
@@ -131,13 +140,14 @@ class Menu:
                 if self.QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
+                pygame.mixer.music.stop
 
 class Ending:
     def __init__(self, display, gameStateManager):
         self.display = display
         self.gameStateManager = gameStateManager
         self.BG = pygame.transform.smoothscale(pygame.image.load("assets/bright-sky.png"), (500, 700))
-        
+
         #resize button
         img = pygame.image.load("assets/button.png")
         DFLT_IMG_SZ = (187, 71)
@@ -190,7 +200,7 @@ class GameOver:
         self.display = display
         self.gameStateManager = gameStateManager
         self.BG = pygame.transform.smoothscale(pygame.image.load("assets/dark-sky.png"), (500, 700))
-        
+
         #resize button
         img = pygame.image.load("assets/button.png")
         DFLT_IMG_SZ = (187, 71)
