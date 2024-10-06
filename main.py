@@ -40,8 +40,13 @@ class Manager:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            self.states[self.gameStateManager.get_state()].run() # all classes MUST have the run function to work
             
+            val = self.states[self.gameStateManager.get_state()].run() # all classes MUST have the run function to work
+            if val == "ending":
+                self.gameStateManager.set_state('ending')
+            elif val == "gameOver":
+                self.gameStateManager.set_state('gameOver')
+
             pygame.display.update()
             self.clock.tick(FPS)
 

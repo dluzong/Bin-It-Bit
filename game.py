@@ -89,6 +89,9 @@ class Game:
         # RUN BOOLEAN
         self.running = True
 
+        # ENDING FLAG -- OBSTACLE COUNTER
+        self.obstacle_counter = 0
+
     def get_score(self):
         return self.score
     
@@ -158,10 +161,15 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+
+                if self.obstacle_counter >= 10:
+                    self.obstacle_counter = 0
+                    self.running = False
                 
                 if event.type == self.obstacle_timer:
                     trash_item = self.trash[randint(0, 3)]
                     self.obstacle_list.append(Trash(self.WIN, trash_item.image, trash_item.bin_type))
+                    self.obstacle_counter += 1
 
             # BACKGROUND
             self.WIN.blit(self.BG, (0,0))
@@ -210,7 +218,10 @@ class Game:
 
         mixer.music.stop()
         # QUIT GAME
-        pygame.quit()
+        if self.score > 0:
+            return "ending"
+        else:
+            return "gameOver"
 
 
 # def mouse_coords():
