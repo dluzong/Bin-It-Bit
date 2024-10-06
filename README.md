@@ -8,18 +8,24 @@
 
 ---
 
+#### **“Contamination is not great, but we have the best facilities in the U.S. that sort our material really well. I think the main problem is just getting more of the recycling into the recycling bin.”**
+_Clare Miflin, director of the Center for Zero Waste Design._
+
 ## 🌆 **About**
 
-> Bin-It-Bit is a 2D game created in hopes of spreading environmental awareness and tackling one of the causes of environmental and climate changes. We believe the first step to tackling climate change is changing the way we live our daily lives. It starts with you, and we are hear to guide you to start a new habit: recycling.
+> Bin-It-Bit is a 2D game created in hopes of spreading environmental awareness and tackling one of the causes of climate change. We believe the first step to tackling climate change is changing the way we live our daily lives. It starts with YOU, and we are here to guide you to start a new habit: recycling.
 
 > Users can learn what materials are recyclable in New York. The game's goal is for users to be more conscious about the garbage they are throwing away.
+
+> We decided to go for a simple mini-game that would appeal to younger audiences. 
+
 
 Add gif where logo underneath is
 ![Image](/assets/game-logo.png)
 
 ## ✨ **What Inspired Us**
 
-> With this being the team's first game created, we wanted to spread awareness on how the 'litter' things can bring irreversible consequences to the Earth and impact not only humans' but plants and animals as well. We came up with a fun and exciting way to show how easy it is to contribute to saving the Earth's environment by simply being mindful of where you toss your trash. Through our pixel art and fun story that many indie games use, we thought this would bring more attention about the consequences, especially to children who may not be aware of recycling habits. 
+> With this being the team's first game created, we wanted to spread awareness on how the 'litter' things can bring irreversible consequences to our envirornment. We came up with a fun and exciting way to show how easy it is to contribute to saving the Earth's environment by simply being mindful of where you toss your trash. Through our pixel art and fun story that many indie games use, we thought this would bring more attention about the consequences, especially to children who may not be aware of recycling habits. 
 
 ---
 
