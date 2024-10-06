@@ -26,12 +26,12 @@ class Manager:
         self.menu = Menu(self.screen, self.gameStateManager)
         self.cutscene = Cutscene(self.screen, self.gameStateManager)
         self.info = Info(self.screen, self.gameStateManager)
-        self.info = Index(self.screen, self.gameStateManager)
+        self.index = Index(self.screen, self.gameStateManager)
         self.gameplay = Game(self.screen, SCREEN_WIDTH, SCREEN_HEIGHT, self.gameStateManager)
         self.ending = Ending(self.screen, self.gameStateManager)
         self.gameOver = GameOver(self.screen, self.gameStateManager)
         
-        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'info':self.info, 'index':self.info, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
+        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'info':self.info, 'index':self.index, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
         
     def run(self):
         while True:
@@ -58,12 +58,12 @@ class Cutscene:
 
         cutscene_manager = CutsceneManager()
         SCREEN.blit(background_3, (0, 0))
-        cutscene_manager.add_scene(DialogueScene('It was an ordinary day in Union Square.\nOur protagonist, Jane Doe, is on a\nstroll when she looks up and notices...', 4))
-        cutscene_manager.add_scene(DialogueScene('The doomsday clock was finally \ncounting down to...', 3))
+        cutscene_manager.add_scene(DialogueScene('It was an ordinary day in Union Square.\nYou were on astroll when you\nlook up and notice...', 4))
+        cutscene_manager.add_scene(DialogueScene('The doomsday clock was finally counting \ndown to...', 3))
         cutscene_manager.add_scene(DialogueScene('...', 2))
         cutscene_manager.add_scene(DialogueScene('...zero??', 2))
         cutscene_manager.add_scene(DialogueScene('The climate change apocalypse \nhas finally begun?!', 3))
-        cutscene_manager.add_scene(DialogueScene('As a consequence of not taking \nenough precautions, Jane Doe and \nthe other inhabitants of Earth are \nforced to collect trash unless they \nwant to be buried under it forever!!', 5))
+        cutscene_manager.add_scene(DialogueScene('As a consequence of not taking \nenough precautions, the inhabitants of \nEarth are forced to collect trash \nunless they want to be buried \nunder it forever!!', 5))
         cutscene_manager.start()
 
         while self.gameStateManager.get_state() == 'cutscene':
@@ -264,7 +264,7 @@ class Index:
 
     def run(self):
         SCREEN = self.display
-        pygame.display.set_caption("Index")
+        pygame.display.set_caption("F")
 
         bottom_rect = pygame.Rect(0, SCREENHEIGHT // 2, SCREENWIDTH, SCREENHEIGHT // 2)
         show_bottom_rect = False
