@@ -272,7 +272,7 @@ class Index:
         self.BG = pygame.transform.scale(pygame.image.load("assets/index-board.png"), (SCREEN_WIDTH,SCREEN_HEIGHT))
 
         # FONT
-        self.myfont = pygame.font.Font('fonts/ARCADECLASSIC.TTF', 16)
+        self.myfont = pygame.font.Font('fonts/ARCADECLASSIC.TTF', 24)
 
         self.BACK_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("assets/back-arrow.png"), (95,75)), pos=(55, 40), text_input="MENU", font=self.myfont, base_color="#292D34", hovering_color="#4A5059")
 
