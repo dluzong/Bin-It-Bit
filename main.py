@@ -272,7 +272,7 @@ class Index:
         self.BG = pygame.transform.scale(pygame.image.load("assets/index-board.png"), (SCREEN_WIDTH,SCREEN_HEIGHT))
 
         # FONT
-        self.myfont = pygame.font.Font('fonts/ARCADECLASSIC.TTF', 24)
+        self.myfont = pygame.font.SysFont("monospace", 30, bold=True)
 
         self.BACK_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("assets/back-arrow.png"), (95,75)), pos=(55, 40), text_input="MENU", font=self.myfont, base_color="#292D34", hovering_color="#4A5059")
 
@@ -315,10 +315,10 @@ class Index:
 
         INDEX_MOUSE_POS = pygame.mouse.get_pos()
 
-        bottle_text = ["Water Bottle - Rigid plastic", "items can be thrown out in", "blue recycling bins."]
-        chips_text = ["Potato Chip Bag - Soft", "plastic items cannot be recycled.", "They should be thrown out in", "the regular trash bin."]
-        cereal_text = ["Cereal Box - Dry cardboard", "and paper trash can be thrown", "out in green recycling bins."]
-        apple_text = ["Apple Core - Organic scraps", "can be put into brown bins", "for compost collecting."]
+        bottle_text = ["Water Bottle:", "Rigid plastic items", "can be thrown out in", "blue recycling bins."]
+        chips_text = ["Potato Chip Bag:", "Soft plastic items", "cannot be recycled.", "They should be thrown", "out in the regular", "trash bin."]
+        cereal_text = ["Cereal Box:", "Dry cardboard and paper", "trash can be thrown", "out in green recycling", "bins."]
+        apple_text = ["Apple Core:", "Organic scraps can be", "put into brown bins", "for compost collecting."]
         
         self.BACK_BUTTON.changeColor(INDEX_MOUSE_POS)
         self.BACK_BUTTON.update(SCREEN)
@@ -335,11 +335,9 @@ class Index:
                     self.gameStateManager.set_state('menu')
         for rect in [bottle_rect, cereal_rect, chips_rect, apple_rect]:
             if is_button_clicked(rect):
-                # Draw the bottom half rect
-                pygame.draw.rect(SCREEN, (200, 200, 200), bottom_rect)
-                
                 # Render text and display it
                 if rect==bottle_rect:
+                    pygame.draw.rect(SCREEN, (112, 222, 250), bottom_rect)
                     highlight_rect = highlight_img.get_rect(center=bottle_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
                     offset = 0
@@ -349,6 +347,7 @@ class Index:
                         offset += 40
 
                 if rect==cereal_rect:
+                    pygame.draw.rect(SCREEN, (140, 242, 111), bottom_rect)
                     highlight_rect = highlight_img.get_rect(center=cereal_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
                     offset = 0
@@ -357,6 +356,7 @@ class Index:
                         SCREEN.blit(text_surface, (50, 390+offset))
                         offset += 40
                 if rect==chips_rect:
+                    pygame.draw.rect(SCREEN, (159, 166, 179), bottom_rect)
                     highlight_rect = highlight_img.get_rect(center=chips_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
                     offset = 0
@@ -365,6 +365,7 @@ class Index:
                         SCREEN.blit(text_surface, (50, 390+offset))
                         offset += 40
                 if rect==apple_rect:
+                    pygame.draw.rect(SCREEN, (150, 132, 98), bottom_rect)
                     highlight_rect = highlight_img.get_rect(center=apple_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
                     offset = 0
