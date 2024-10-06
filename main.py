@@ -83,7 +83,7 @@ class Cutscene:
 
             # Check if all scenes are finished and then change state
             if cutscene_manager.active_scene is None:
-                self.gameStateManager.set_state('gameplay')  # CHANGE TO GAMEPLAY !!!!!!
+                self.gameStateManager.set_state('gameplay') #now start the gameplay
 
 
 class Menu:
@@ -241,7 +241,7 @@ class GameOver:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.INFO_BUTTON.checkForInput(ENDING_MOUSE_POS):
                     print("go to info")
-                    #self.gameStateManager.set_state('game')
+                    self.gameStateManager.set_state('info')
                 if self.MENU_BUTTON.checkForInput(ENDING_MOUSE_POS):
                     self.gameStateManager.set_state('menu')
                 # if self.QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
