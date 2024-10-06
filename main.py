@@ -22,10 +22,6 @@ class Manager:
         pygame.display.set_caption("Bin-It-Bit Game")
         self.clock = pygame.time.Clock()
         
-        # LOADING TRACK
-        #mixer.music.load("assets/tracks/AWorthyChallenge.wav")
-        # SET TRACK VOLUME
-        #mixer.music.set_volume(0.5)
 
         self.gameStateManager = GameStateManager('menu') #the app should start at the menu
         self.menu = Menu(self.screen, self.gameStateManager)
@@ -279,6 +275,10 @@ class Index:
         self.BACK_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("assets/back-arrow.png"), (95,75)), pos=(55, 40), text_input="MENU", font=self.myfont, base_color="#292D34", hovering_color="#4A5059")
 
     def run(self):
+        if not mixer.music.get_busy():
+            mixer.music.load("assets/tracks/We have New Info (Loop).wav")
+            mixer.music.play()
+        
         SCREEN = self.display
         pygame.display.set_caption("F")
 
@@ -324,6 +324,9 @@ class Index:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.BACK_BUTTON.checkForInput(INDEX_MOUSE_POS):
                     print("go to menu state")
+                    button_sound = mixer.Sound("assets/sfx/blip-2.wav")
+                    mixer.Sound.play(button_sound)
+                    mixer.music.stop()
                     self.gameStateManager.set_state('menu')
         for rect in [bottle_rect, cereal_rect, chips_rect, apple_rect]:
             if is_button_clicked(rect):

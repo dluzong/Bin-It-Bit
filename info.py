@@ -1,5 +1,7 @@
 import pygame
 from button import *
+from pygame import mixer
+import sys
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 500,700
 
@@ -43,6 +45,10 @@ class Info:
         self.MENU_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(250, 650), text_input="MENU", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
     
     def run(self):
+        if not mixer.music.get_busy():
+            mixer.music.load("assets/tracks/We have New Info (Loop).wav")
+            mixer.music.play()
+        
         SCREEN = self.display
         pygame.display.set_caption("Menu")
         
@@ -67,4 +73,7 @@ class Info:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.MENU_BUTTON.checkForInput(MOUSE_POS):
                     print("go to menu")
+                    button_sound = mixer.Sound("assets/sfx/blip-2.wav")
+                    mixer.Sound.play(button_sound)
+                    mixer.music.stop()
                     self.gameStateManager.set_state('menu')
