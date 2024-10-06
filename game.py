@@ -89,6 +89,8 @@ class Game:
         # RUN BOOLEAN
         self.running = True
 
+    def get_score(self):
+        return self.score
     
     # OBSTACLE MOVEMENT FUNCTION
     def obstacle_movement(self, obstacle_list, score, current_bin):
