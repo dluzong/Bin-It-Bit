@@ -272,7 +272,7 @@ class Index:
         self.BG = pygame.transform.scale(pygame.image.load("assets/index-board.png"), (SCREEN_WIDTH,SCREEN_HEIGHT))
 
         # FONT
-        self.myfont = pygame.font.Font('fonts/ARCADECLASSIC.TTF', 20)
+        self.myfont = pygame.font.Font('fonts/ARCADECLASSIC.TTF', 16)
 
         self.BACK_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("assets/back-arrow.png"), (95,75)), pos=(55, 40), text_input="MENU", font=self.myfont, base_color="#292D34", hovering_color="#4A5059")
 
@@ -282,10 +282,9 @@ class Index:
             mixer.music.play()
         
         SCREEN = self.display
-        pygame.display.set_caption("F")
+        pygame.display.set_caption("INDEX")
 
         bottom_rect = pygame.Rect(0, SCREENHEIGHT // 2, SCREENWIDTH, SCREENHEIGHT // 2)
-        show_bottom_rect = False
 
         bottle_img = pygame.transform.scale(pygame.image.load("assets/bottle.png"), (40,75))
         bottle_loc = (180,160)
@@ -305,7 +304,6 @@ class Index:
             mouse_pos = pygame.mouse.get_pos()  # Get current mouse position
             mouse_clicked = pygame.mouse.get_pressed()[0]  # Check if left mouse button is clicked
             if button_rect.collidepoint(mouse_pos) and mouse_clicked:
-                show_bottom_rect = True
                 return True
             return False
  
@@ -317,6 +315,11 @@ class Index:
 
         INDEX_MOUSE_POS = pygame.mouse.get_pos()
 
+        bottle_text = ["Water Bottle - Rigid plastic", "items can be thrown out in", "blue recycling bins."]
+        chips_text = ["Potato Chip Bag - Soft", "plastic items cannot be recycled.", "They should be thrown out in", "the regular trash bin."]
+        cereal_text = ["Cereal Box - Dry cardboard", "and paper trash can be thrown", "out in green recycling bins."]
+        apple_text = ["Apple Core - Organic scraps", "can be put into brown bins", "for compost collecting."]
+        
         self.BACK_BUTTON.changeColor(INDEX_MOUSE_POS)
         self.BACK_BUTTON.update(SCREEN)
         for event in pygame.event.get():
@@ -332,26 +335,43 @@ class Index:
                     self.gameStateManager.set_state('menu')
         for rect in [bottle_rect, cereal_rect, chips_rect, apple_rect]:
             if is_button_clicked(rect):
-                if show_bottom_rect:
-                    # Draw the bottom half rect
-                    pygame.draw.rect(SCREEN, (200, 200, 200), bottom_rect)
+                # Draw the bottom half rect
+                pygame.draw.rect(SCREEN, (200, 200, 200), bottom_rect)
                 
-                    # Render text and display it
-                    text_surface = self.myfont.render("This is some information!", True, (0, 0, 0))
-                    text_rect = text_surface.get_rect(center=bottom_rect.center)
-                    SCREEN.blit(text_surface, text_rect)
+                # Render text and display it
                 if rect==bottle_rect:
                     highlight_rect = highlight_img.get_rect(center=bottle_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
+                    offset = 0
+                    for text in bottle_text:
+                        text_surface = self.myfont.render(text, True, (0, 0, 0))
+                        SCREEN.blit(text_surface, (50, 390+offset))
+                        offset += 40
+
                 if rect==cereal_rect:
                     highlight_rect = highlight_img.get_rect(center=cereal_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
+                    offset = 0
+                    for text in cereal_text:
+                        text_surface = self.myfont.render(text, True, (0, 0, 0))
+                        SCREEN.blit(text_surface, (50, 390+offset))
+                        offset += 40
                 if rect==chips_rect:
                     highlight_rect = highlight_img.get_rect(center=chips_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
+                    offset = 0
+                    for text in chips_text:
+                        text_surface = self.myfont.render(text, True, (0, 0, 0))
+                        SCREEN.blit(text_surface, (50, 390+offset))
+                        offset += 40
                 if rect==apple_rect:
                     highlight_rect = highlight_img.get_rect(center=apple_loc)
                     SCREEN.blit(highlight_img, highlight_rect)
+                    offset = 0
+                    for text in apple_text:
+                        text_surface = self.myfont.render(text, True, (0, 0, 0))
+                        SCREEN.blit(text_surface, (50, 390+offset))
+                        offset += 40
 
 #CHANGES STATE
 class GameStateManager:
