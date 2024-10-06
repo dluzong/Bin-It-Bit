@@ -92,7 +92,8 @@ class Game:
         # ENDING FLAG -- OBSTACLE COUNTER
         self.obstacle_counter = 0
 
-
+    def get_score(self):
+        return self.score
     
     # OBSTACLE MOVEMENT FUNCTION
     def obstacle_movement(self, obstacle_list, score, current_bin):

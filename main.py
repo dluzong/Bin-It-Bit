@@ -29,7 +29,7 @@ class Manager:
         self.info = Info(self.screen, self.gameStateManager)
         self.index = Index(self.screen, self.gameStateManager)
         self.gameplay = Game(self.screen, SCREEN_WIDTH, SCREEN_HEIGHT, self.gameStateManager)
-        self.ending = Ending(self.screen, self.gameStateManager)
+        self.ending = Ending(self.screen, self.gameStateManager, self.gameplay)
         self.gameOver = GameOver(self.screen, self.gameStateManager)
         
         self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'info':self.info, 'index':self.index, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
@@ -164,9 +164,10 @@ class Menu:
                     sys.exit()
 
 class Ending:
-    def __init__(self, display, gameStateManager):
+    def __init__(self, display, gameStateManager, game):
         self.display = display
         self.gameStateManager = gameStateManager
+        self.game = game
         self.BG = pygame.transform.smoothscale(pygame.image.load("assets/bright-sky.png"), (500, 700))
 
         #resize button
@@ -184,12 +185,10 @@ class Ending:
 
         icon = pygame.image.load("assets/green-bin.png")
 
-        #TEMPORARY
-        score = 0
-
+        print(f'Game Score: {game.score}')
         ENDING_MOUSE_POS = pygame.mouse.get_pos()
         ENDING_TEXT = get_font(90).render("CONGRATS!",True,"#D3A068")
-        ENDING_MSG_TEXT = get_font(30).render(f"You recycled {score} out of 10 items!", True, "#80493A")
+        ENDING_MSG_TEXT = get_font(30).render(f"You recycled {game.score} out of 10 items!", True, "#80493A")
         ENDING_RECT = ENDING_TEXT.get_rect(center=(255, 250))
         ENDING_MSG_RECT = ENDING_MSG_TEXT.get_rect(center=(250, 330))
         ICON_RESIZE = pygame.transform.scale(icon, (120,120))
