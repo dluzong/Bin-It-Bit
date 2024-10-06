@@ -100,7 +100,7 @@ class Game:
         self.running = True
         self.bin_x = 250  # Reset bin position
         self.current_bin_index = 0  # Reset bin to first one
-        
+
     def get_score(self):
         return self.obstacle_counter
 
@@ -172,6 +172,7 @@ class Game:
             # check if game ends
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    pygame.quit()
                     self.running = False
 
                 if self.obstacle_counter >= 10:
