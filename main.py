@@ -26,11 +26,12 @@ class Manager:
         self.menu = Menu(self.screen, self.gameStateManager)
         self.cutscene = Cutscene(self.screen, self.gameStateManager)
         self.info = Info(self.screen, self.gameStateManager)
+        self.info = Index(self.screen, self.gameStateManager)
         self.gameplay = Game(self.screen, SCREEN_WIDTH, SCREEN_HEIGHT, self.gameStateManager)
         self.ending = Ending(self.screen, self.gameStateManager)
         self.gameOver = GameOver(self.screen, self.gameStateManager)
         
-        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'info':self.info, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
+        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'info':self.info, 'index':self.info, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
         
     def run(self):
         while True:
