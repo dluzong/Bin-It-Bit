@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from random import randint
 
 class Trash:
@@ -40,15 +41,19 @@ def obstacle_movement(obstacle_list, score, current_bin):
             # UPDATE SCORE
             # check if the obstacle hits the ground
             if obstacle.rect.y >= HEIGHT:
+                pygame.mixer.Sound.play(miss_sound)
                 score -= 1
                 obstacles_to_remove.append(obstacle)
 
             # check if obstacle collides with the corresponding bin
             if obstacle.rect.colliderect(current_bin.rect):
                 if obstacle.bin_type == current_bin.bin_type:
+                    pygame.mixer.Sound.play(catch_sound)
                     score += 1
                 else:
+                    pygame.mixer.Sound.play(miss_sound)
                     score -= 1
+                
                 obstacles_to_remove.append(obstacle)
 
         # Remove obstacles that hit the ground or collided with a bin
@@ -82,7 +87,19 @@ def mouse_coords():
     print(mouse_pos)
     pygame.draw.circle(WIN, 'red', mouse_pos, 10)
 
-pygame.init() 
+# INITIALIZATION
+pygame.init()
+mixer.init()
+
+# LOADING TRACK
+mixer.music.load("assets/tracks/AWorthyChallenge.wav")
+
+# SET TRACK VOLUME
+mixer.music.set_volume(0.25)
+
+# LOAD SOUNDS
+catch_sound = pygame.mixer.Sound("assets/sfx/coin-3.wav")
+miss_sound = pygame.mixer.Sound("assets/sfx/bonk-3.wav")
 
 # FONT
 myfont = pygame.font.SysFont("monospace", 18, bold=True)
@@ -141,6 +158,9 @@ obstacle_timer = pygame.USEREVENT + 1
 pygame.time.set_timer(obstacle_timer, 4000) # trigger obstacle event every 4000 ms
 # EMILYYYYYYY ^^^^^^^^^
 
+# PLAY TRACK
+mixer.music.play(-1) # -1 means play infinitely
+
 # GAME LOOP
 while run:
     # check if game ends
@@ -153,11 +173,10 @@ while run:
             obstacle_list.append(Trash(trash_item.image, trash_item.bin_type))
     
     # BACKGROUND
-    #WIN.fill('white')
     WIN.blit(BG, (0,0))
 
     # MOUSE CORD
-    mouse_coords()
+    # mouse_coords()
 
     # BIN KEY
     draw_bin_key()
@@ -198,5 +217,6 @@ while run:
     pygame.display.update()
     clock.tick(60)
 
+mixer.music.stop()
 # QUIT GAME
 pygame.quit()
