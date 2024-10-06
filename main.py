@@ -5,7 +5,7 @@ from cutscenes import *
 from info import *
 from button import Button
 from sine import *
-
+from pygame import mixer
 from game import Game
 
 SCREENWIDTH, SCREENHEIGHT = 500,700
@@ -17,11 +17,16 @@ def get_font(size): # Returns Press-Start-2P in the desired size
 class Manager:
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()
+        #mixer.init()
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         pygame.display.set_caption("Bin-It-Bit Game")
         self.clock = pygame.time.Clock()
         
+        # LOADING TRACK
+        #mixer.music.load("assets/tracks/AWorthyChallenge.wav")
+        # SET TRACK VOLUME
+        #mixer.music.set_volume(0.5)
+
         self.gameStateManager = GameStateManager('menu') #the app should start at the menu
         self.menu = Menu(self.screen, self.gameStateManager)
         self.cutscene = Cutscene(self.screen, self.gameStateManager)
@@ -40,7 +45,7 @@ class Manager:
                     pygame.quit()
                     sys.exit()
             self.states[self.gameStateManager.get_state()].run() # all classes MUST have the run function to work
-                    
+            
             pygame.display.update()
             self.clock.tick(FPS)
 
@@ -50,6 +55,10 @@ class Cutscene:
         self.gameStateManager = gameStateManager
 
     def run(self):
+        if not mixer.music.get_busy():
+            mixer.music.load("assets/tracks/The Graveyard (LOOP).wav")
+            mixer.music.play()
+        
         SCREEN = self.display
         background_3 = pygame.image.load("assets/doomsday-three-bkg.png")
         background_2 = pygame.image.load("assets/doomsday-two-bkg.png")
@@ -92,12 +101,6 @@ class Menu:
         self.display = display
         self.gameStateManager = gameStateManager
         self.BG = pygame.transform.smoothscale(pygame.image.load("assets/bright-sky.png"), (500, 700))
-        
-        # LOADING TRACK
-        pygame.mixer.music.load("assets/tracks/A Hearty Fellow (LOOP).wav")
-        # SET TRACK VOLUME
-        pygame.mixer.music.set_volume(0.5)
-        pygame.mixer.music.play(-1)
 
         #resize button
         img = pygame.image.load("assets/button.png")
@@ -107,8 +110,12 @@ class Menu:
         self.INDEX_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(375, 470), text_input="INDEX", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
         self.INFO_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(125, 590), text_input="INFO", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
         self.QUIT_BUTTON = Button(image=pygame.transform.scale(img, DFLT_IMG_SZ), pos=(375, 590), text_input="QUIT", font=get_font(40), base_color="#80493A", hovering_color="#A77B5B")
-    
+
     def run(self):
+        if not mixer.music.get_busy():
+            mixer.music.load("assets/tracks/A Hearty Fellow (Loop).wav")
+            mixer.music.play()
+
         SCREEN = self.display
         pygame.display.set_caption("Menu")
         
@@ -134,17 +141,26 @@ class Menu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.START_BUTTON.checkForInput(MENU_MOUSE_POS):
                     print("go to cutscene")
+                    button_sound = mixer.Sound("assets/sfx/blip-2.wav")
+                    mixer.Sound.play(button_sound)
+                    mixer.music.stop()
                     self.gameStateManager.set_state('cutscene')
                 if self.INDEX_BUTTON.checkForInput(MENU_MOUSE_POS):
                     print("go to index state")
+                    button_sound = mixer.Sound("assets/sfx/blip-2.wav")
+                    mixer.Sound.play(button_sound)
+                    mixer.music.stop()
                     self.gameStateManager.set_state('index')
                 if self.INFO_BUTTON.checkForInput(MENU_MOUSE_POS):
                     print("go to info")
+                    button_sound = mixer.Sound("assets/sfx/blip-2.wav")
+                    mixer.Sound.play(button_sound)
+                    mixer.music.stop()
                     self.gameStateManager.set_state('info')
                 if self.QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    mixer.music.stop()
                     pygame.quit()
                     sys.exit()
-                pygame.mixer.music.stop
 
 class Ending:
     def __init__(self, display, gameStateManager):

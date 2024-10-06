@@ -38,9 +38,6 @@ class Game:
         pygame.init()
         mixer.init()
 
-        # LOADING TRACK
-        mixer.music.load("assets/tracks/AWorthyChallenge.wav")
-
         # SET TRACK VOLUME
         mixer.music.set_volume(0.25)
 
@@ -146,6 +143,9 @@ class Game:
         self.WIN.blit(score_label, score_rect)
 
     def run(self):
+        # LOADING TRACK
+        mixer.music.load("assets/tracks/AWorthyChallenge.wav")
+        
         pygame.display.set_caption("Bin-It-Bit Game")
         
         # PLAY TRACK
