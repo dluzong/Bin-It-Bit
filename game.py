@@ -50,7 +50,7 @@ class Game:
         self.WIN = WIN
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT
-        self.BG = pygame.transform.smoothscale(pygame.image.load("assets/bright-sky.png"), (self.WIDTH, self.HEIGHT))
+        self.BG = pygame.transform.smoothscale(pygame.image.load("assets/doomsday-opacity.png"), (self.WIDTH, self.HEIGHT))
         self.myfont = pygame.font.SysFont("monospace", 18, bold=True)
         self.bin_x = 250 # x coord for bin
         self.bin_y = 550 # y coord for bin

@@ -63,7 +63,7 @@ class Cutscene:
 
         cutscene_manager = CutsceneManager()
         SCREEN.blit(background_3, (0, 0))
-        cutscene_manager.add_scene(DialogueScene('It was an ordinary day in Union Square.\nYou were on astroll when you\nlook up and notice...', 4))
+        cutscene_manager.add_scene(DialogueScene('It was an ordinary day in Union Square.\nYou were on a stroll when you\nlook up and notice...', 4))
         cutscene_manager.add_scene(DialogueScene('The doomsday clock was finally counting \ndown to...', 3))
         cutscene_manager.add_scene(DialogueScene('...', 2))
         cutscene_manager.add_scene(DialogueScene('...zero??', 2))
