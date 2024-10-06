@@ -22,8 +22,7 @@ _Clare Miflin, director of the Center for Zero Waste Design._
 > We decided to go for a simple mini-game that would appeal to younger audiences. 
 
 
-Add gif where logo underneath is
-![Image](/assets/game-logo.png)
+<img src="assets/gameplay.gif">
 
 ## ✨ **What Inspired Us**
 
