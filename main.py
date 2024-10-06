@@ -47,7 +47,7 @@ class Menu:
     def __init__(self, display, gameStateManager):
         self.display = display
         self.gameStateManager = gameStateManager
-        self.BG = pygame.image.load("assets/bright-sky.png")
+        self.BG = pygame.transform.smoothscale(pygame.image.load("assets/bright-sky.png"), (500, 700))
         # FONT
         self.myfont = pygame.font.Font('fonts/ARCADECLASSIC.TTF', 40)
         
@@ -66,9 +66,11 @@ class Menu:
         
         SCREEN.blit(self.BG, (0, 0))
 
+        logo = pygame.image.load("assets/game-logo.png")
+
         MENU_MOUSE_POS = pygame.mouse.get_pos()
-        MENU_TEXT = self.myfont.render("BIN IT BIT", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(250, 100))
+        MENU_TEXT = pygame.transform.scale(logo, (500,500))
+        MENU_RECT = MENU_TEXT.get_rect(center=(255, 250))
         
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
