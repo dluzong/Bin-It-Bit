@@ -5,6 +5,8 @@ import time
 from cutscenes import *
 from button import Button
 
+from game import Game
+
 SCREENWIDTH, SCREENHEIGHT = 500,700
 FPS = 60
 
@@ -21,10 +23,11 @@ class Manager:
         self.gameStateManager = GameStateManager('menu') #the app should start at the menu
         self.menu = Menu(self.screen, self.gameStateManager)
         self.cutscene = Cutscene(self.screen, self.gameStateManager)
+        self.gameplay = Game(self.screen, SCREEN_WIDTH, SCREEN_HEIGHT, self.gameStateManager)
         self.ending = Ending(self.screen, self.gameStateManager)
         self.gameOver = GameOver(self.screen, self.gameStateManager)
         
-        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'ending':self.ending, 'gameOver':self.gameOver}
+        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
         
     def run(self):
         while True:
@@ -77,7 +80,7 @@ class Cutscene:
 
             # Check if all scenes are finished and then change state
             if cutscene_manager.active_scene is None:
-                self.gameStateManager.set_state('menu')  # CHANGE TO GAMEPLAY !!!!!!
+                self.gameStateManager.set_state('gameplay')  # CHANGE TO GAMEPLAY !!!!!!
 
 
 class Menu:
