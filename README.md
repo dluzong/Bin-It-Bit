@@ -4,7 +4,9 @@
 
 ## 💻 **How to Install**
 
-1. add installtion steps here
+1. pip install pygame
+2. git clone git@github.com:dluzong/Bin-It-Bit.git
+3. run main.py
 
 ---
 
