@@ -1,5 +1,6 @@
 import pygame
 import sys
+from cutscenes import *
 
 SCREENWIDTH, SCREENHEIGHT = 500,700
 FPS = 60
@@ -11,9 +12,9 @@ class Game:
         pygame.display.set_caption("Bin-It-Bit Game")
         self.clock = pygame.time.Clock()
         
-        self.gameStateManager = GameStateManager('menu')
+        self.gameStateManager = GameStateManager('cutscene')
         self.menu = Menu(self.screen, self.gameStateManager)
-        self.cutscene = Menu(self.screen, self.gameStateManager)
+        self.cutscene = Cutscene(self.screen, self.gameStateManager)
         
         self.states = {'menu':self.menu, 'cutscene':self.cutscene}
         
@@ -23,8 +24,6 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN: #replace with menu button actions
-                   self.gameStateManager.set_state('cutscene') # this is a test 
             self.states[self.gameStateManager.get_state()].run() # all classes MUST have the run function to work
                     
             pygame.display.update()
@@ -35,7 +34,12 @@ class Cutscene:
         self.display = display
         self.gameStateManager = gameStateManager
     def run(self):
-        self.display.fill('blue')
+        cutscene_manager = CutsceneManager()
+        cutscene_manager.add_scene(DialogueScene('It was a dark and stormy night...', 5))
+        cutscene_manager.add_scene(DialogueScene('Suddenly, a shot rang out!', 4))
+        cutscene_manager.add_scene(DialogueScene('The maid screamed.', 3))
+        cutscene_manager.add_scene(DialogueScene('And all was silent...', 5))
+        cutscene_manager.start()
 
 class Menu:
     def __init__(self, display, gameStateManager):
