@@ -4,7 +4,6 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 500,700
 
 # Colors (RGB)
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
 
 class CutsceneManager:
     def __init__(self):
@@ -36,6 +35,9 @@ class CutsceneManager:
     def draw(self, screen):
         if self.active_scene is not None:
             self.active_scene.draw(screen)
+    
+    def return_scene_index(self):
+        return self.scene_index
 
 # Base class for scenes
 class Scene:
@@ -54,23 +56,30 @@ class Scene:
 # Example of a specific scene
 class DialogueScene(Scene):
     def __init__(self, text, duration):
-        self.text = text
+        #if the text is too 
+        self.text = text.split('\n')    
         self.duration = duration
-        self.font = pygame.font.SysFont('Arial', 32)
+        self.font = pygame.font.SysFont('monospace', 18, bold=True)
         self.start_ticks = pygame.time.get_ticks()
+        self.current_ticks = 0
+        self.elapsed_time = 0
 
     def start(self):
         self.start_ticks = pygame.time.get_ticks()
 
     def update(self):
-        current_ticks = pygame.time.get_ticks()
-        self.elapsed_time = (current_ticks - self.start_ticks) / 1000
+        current_ticks = pygame.time.get_ticks()  # Get current time in milliseconds
+        self.elapsed_time = (current_ticks - self.start_ticks) / 1000  # Convert to seconds
+
 
     def draw(self, screen):
-        screen.fill(BLACK)
-        render_text = self.font.render(self.text, True, WHITE)
-        text_rect = render_text.get_rect(center=(SCREEN_WIDTH//2, SCREEN_HEIGHT//2))
-        screen.blit(render_text, text_rect)
+        #background square
+        pygame.draw.rect(screen, (255, 236, 161), pygame.Rect(35, 570, 440, 115))
+        offset = 0
+        for item in self.text:
+            render_text = self.font.render(item, True, BLACK)
+            screen.blit(render_text, (42, 575+offset))
+            offset += 20
 
     def is_finished(self):
         return self.elapsed_time >= self.duration
