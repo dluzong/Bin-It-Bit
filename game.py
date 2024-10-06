@@ -92,6 +92,15 @@ class Game:
         # ENDING FLAG -- OBSTACLE COUNTER
         self.obstacle_counter = 0
 
+    def reset_game(self):
+        """Resets the game state to allow replaying from scratch."""
+        self.score = 0
+        self.obstacle_list = []
+        self.obstacle_counter = 0
+        self.running = True
+        self.bin_x = 250  # Reset bin position
+        self.current_bin_index = 0  # Reset bin to first one
+        
     def get_score(self):
         return self.obstacle_counter
 
