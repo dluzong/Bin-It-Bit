@@ -3,7 +3,8 @@ from pygame import mixer
 from random import randint
 
 class Trash:
-    def __init__(self, image, bin_type):
+    def __init__(self, WIN, image, bin_type):
+        self.WIN = WIN
         self.image = image
         self.rect = image.get_rect(center=(randint(25, 475), randint(-1000, -100)))
         self.bin_type = bin_type
@@ -15,7 +16,8 @@ class Trash:
         self.WIN.blit(self.image, self.rect)
 
 class Bin:
-    def __init__(self, image, bin_type, bin_x, bin_y):
+    def __init__(self, WIN, image, bin_type, bin_x, bin_y):
+        self.WIN = WIN
         self.bin_x = bin_x
         self.bin_y = bin_y
         self.image = image
@@ -57,10 +59,10 @@ class Game:
         self.bin_y = 550 # y coord for bin
         self.current_bin_index = 0
         self.bins = [
-            Bin(pygame.image.load("assets/black-bin.png"), "black", self.bin_x, self.bin_y),
-            Bin(pygame.image.load("assets/brown-bin.png"), "brown", self.bin_x, self.bin_y),
-            Bin(pygame.image.load("assets/blue-bin.png"), "blue", self.bin_x, self.bin_y),
-            Bin(pygame.image.load("assets/green-bin.png"), "green", self.bin_x, self.bin_y)
+            Bin(self.WIN, pygame.image.load("assets/black-bin.png"), "black", self.bin_x, self.bin_y),
+            Bin(self.WIN, pygame.image.load("assets/brown-bin.png"), "brown", self.bin_x, self.bin_y),
+            Bin(self.WIN, pygame.image.load("assets/blue-bin.png"), "blue", self.bin_x, self.bin_y),
+            Bin(self.WIN, pygame.image.load("assets/green-bin.png"), "green", self.bin_x, self.bin_y)
         ]
 
         # OBSTACLES / TRASH
@@ -69,10 +71,10 @@ class Game:
         self.apple_core = pygame.transform.smoothscale(pygame.image.load("assets/apple.png").convert_alpha(), (40, 50)) # brown
         self.chip_bag = pygame.transform.smoothscale(pygame.image.load("assets/chips.png").convert_alpha(), (40, 50)) # black
         self.trash = [
-            Trash(self.plastic_bottle, 'blue'),
-            Trash(self.cereal_box, 'green'),
-            Trash(self.apple_core, 'brown'),
-            Trash(self.chip_bag, 'black')
+            Trash(self.WIN, self.plastic_bottle, 'blue'),
+            Trash(self.WIN, self.cereal_box, 'green'),
+            Trash(self.WIN, self.apple_core, 'brown'),
+            Trash(self.WIN, self.chip_bag, 'black')
         ]
 
         self.obstacle_timer = pygame.USEREVENT + 1
@@ -88,7 +90,7 @@ class Game:
         self.clock = pygame.time.Clock() # fps
 
         # RUN BOOLEAN
-        self.run = True
+        self.running = True
 
     
     # OBSTACLE MOVEMENT FUNCTION
@@ -149,15 +151,15 @@ class Game:
         # PLAY TRACK
         mixer.music.play(-1) # -1 means play infinitely
 
-        while run:
+        while self.running:
             # check if game ends
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    self.running = False
                 
                 if event.type == self.obstacle_timer:
                     trash_item = self.trash[randint(0, 3)]
-                    self.obstacle_list.append(Trash(trash_item.image, trash_item.bin_type))
+                    self.obstacle_list.append(Trash(self.WIN, trash_item.image, trash_item.bin_type))
 
             # BACKGROUND
             self.WIN.blit(self.BG, (0,0))
@@ -182,15 +184,15 @@ class Game:
 
             ## SWITCH BINS
             if keys[pygame.K_1]:
-                current_bin_index = 0
+                self.current_bin_index = 0
             if keys[pygame.K_2]:
-                current_bin_index = 1
+                self.current_bin_index = 1
             if keys[pygame.K_3]:
-                current_bin_index = 2 
+                self.current_bin_index = 2 
             if keys[pygame.K_4]:
-                current_bin_index = 3
+                self.current_bin_index = 3
 
-            current_bin = self.bins[current_bin_index]
+            current_bin = self.bins[self.current_bin_index]
             current_bin.update_coords(self.bin_x, self.bin_y)
             current_bin.draw()
 
