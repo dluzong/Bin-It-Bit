@@ -29,22 +29,27 @@ class Bin:
     def draw(self):
         WIN.blit(self.image, self.rect)
 
-
 # OBSTACLE MOVEMENT FUNCTION
-def obstacle_movement(obstacle_list, score):
+def obstacle_movement(obstacle_list, score, current_bin):
     if obstacle_list:
-        obstacles_to_remove = []  # Keep track of obstacles to remove
+        obstacles_to_remove = []  # keep track of obstacles to remove
         for obstacle in obstacle_list:
             obstacle.move()
             obstacle.draw()
 
-            # Check if the obstacle hits the ground (i.e., obstacle goes beyond screen height)
+            # UPDATE SCORE
+            # check if the obstacle hits the ground
             if obstacle.rect.y >= HEIGHT:
-                score -= 1  # Deduct one point
-                obstacles_to_remove.append(obstacle)  # Mark obstacle for removal
+                score -= 1
+                obstacles_to_remove.append(obstacle)
 
-            # Check if obstacle collides with the corresponding bin
-            # Write code here...
+            # check if obstacle collides with the corresponding bin
+            if obstacle.rect.colliderect(current_bin.rect):
+                if obstacle.bin_type == current_bin.bin_type:
+                    score += 1
+                else:
+                    score -= 1
+                obstacles_to_remove.append(obstacle)
 
         # Remove obstacles that hit the ground or collided with a bin
         for obstacle in obstacles_to_remove:
@@ -86,7 +91,9 @@ myfont = pygame.font.SysFont("monospace", 18, bold=True)
 WIDTH = 500
 HEIGHT = 700
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Bin-It-Bit Game") 
+pygame.display.set_caption("Bin-It-Bit Game")
+
+BG = pygame.transform.smoothscale(pygame.image.load("assets/bright-sky.png"), (WIDTH, HEIGHT))
 
 # PLAYER / BINS 
 bin_x = 250 # x coord for bin
@@ -98,13 +105,14 @@ bins = [
     Bin(pygame.image.load("assets/blue-bin.png"), "blue", bin_x, bin_y),
     Bin(pygame.image.load("assets/green-bin.png"), "green", bin_x, bin_y)
 ]
+
 current_bin_index = 0
 
 # OBSTACLES / TRASH
-plastic_bottle = pygame.transform.smoothscale(pygame.image.load("assets/bottle.png").convert_alpha(), (50, 50)) # green
-cereal_box = pygame.transform.smoothscale(pygame.image.load("assets/cereal.png").convert_alpha(), (50, 50)) # green
-apple_core = pygame.transform.smoothscale(pygame.image.load("assets/apple.png").convert_alpha(), (50, 50)) # brown
-chip_bag = pygame.transform.smoothscale(pygame.image.load("assets/chips.png").convert_alpha(), (50, 50)) # black
+plastic_bottle = pygame.transform.smoothscale(pygame.image.load("assets/bottle.png").convert_alpha(), (40, 50)) # green
+cereal_box = pygame.transform.smoothscale(pygame.image.load("assets/cereal.png").convert_alpha(), (40, 50)) # green
+apple_core = pygame.transform.smoothscale(pygame.image.load("assets/apple.png").convert_alpha(), (40, 50)) # brown
+chip_bag = pygame.transform.smoothscale(pygame.image.load("assets/chips.png").convert_alpha(), (40, 50)) # black
 
 trash = [
     Trash(plastic_bottle, 'blue'),
@@ -113,6 +121,7 @@ trash = [
     Trash(chip_bag, 'black')
 ]
 
+# OBSTACLES IN PLAY
 obstacle_list = []
 
 # SCORE COUNTER
@@ -144,14 +153,18 @@ while run:
             obstacle_list.append(Trash(trash_item.image, trash_item.bin_type))
     
     # BACKGROUND
-    WIN.fill('white')
+    #WIN.fill('white')
+    WIN.blit(BG, (0,0))
+
+    # MOUSE CORD
+    mouse_coords()
 
     # BIN KEY
     draw_bin_key()
 
     # BIN MOVEMENT
 
-    # while the keys are pressed, go left/right or switch bins
+    ## UPDATE BIN COORDS
     keys = pygame.key.get_pressed() 
 
     if keys[pygame.K_LEFT]:
@@ -161,7 +174,7 @@ while run:
         if bin_x < (WIDTH - current_bin.rect.width/2):
             bin_x += 5
 
-    # DRAW BIN
+    ## SWITCH BINS
     if keys[pygame.K_1]:
         current_bin_index = 0
     if keys[pygame.K_2]:
@@ -174,16 +187,12 @@ while run:
     current_bin = bins[current_bin_index]
     current_bin.update_coords(bin_x, bin_y)
     current_bin.draw()
-    pygame.draw.rect(WIN, (255, 0, 0), current_bin, 2 )
-
-    # MOUSE CORD
-    mouse_coords()
 
     # DISPLAY SCORE
     draw_score()
 
     # TRASH MOVEMENT
-    obstacle_list, score = obstacle_movement(obstacle_list, score)
+    obstacle_list, score = obstacle_movement(obstacle_list, score, current_bin)
 
     # UPDATE DISPLAY AT 60 FPS
     pygame.display.update()
