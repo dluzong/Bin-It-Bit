@@ -80,7 +80,7 @@ class Cutscene:
 
             # Check if all scenes are finished and then change state
             if cutscene_manager.active_scene is None:
-                self.gameStateManager.set_state('menu')  # CHANGE TO GAMEPLAY !!!!!!
+                self.gameStateManager.set_state('game')  # CHANGE TO GAMEPLAY !!!!!!
 
 
 class Menu:

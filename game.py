@@ -31,7 +31,7 @@ class Bin:
         self.WIN.blit(self.image, self.rect)
 
 class Game:
-    def __init__(self, WIN, WIDTH, HEIGHT):
+    def __init__(self, WIN, WIDTH, HEIGHT, gameStateManager):
         # INITIALIZATION
         pygame.init()
         mixer.init()
@@ -45,6 +45,8 @@ class Game:
         # LOAD SOUNDS
         self.catch_sound = pygame.mixer.Sound("assets/sfx/coin-3.wav")
         self.miss_sound = pygame.mixer.Sound("assets/sfx/bonk-3.wav")
+
+        self.gameStateManager = gameStateManager
 
         self.WIN = WIN
         self.WIDTH = WIDTH
