@@ -4,7 +4,6 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 500,700
 
 # Colors (RGB)
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
 
 class CutsceneManager:
     def __init__(self):
@@ -24,7 +23,6 @@ class CutsceneManager:
     def update(self):
         if self.active_scene is not None:
             if self.active_scene.is_finished():
-                print('we have finished and will move on') #this isnt printing?
                 self.scene_index += 1
                 if self.scene_index < len(self.scenes):
                     self.active_scene = self.scenes[self.scene_index]
@@ -79,7 +77,6 @@ class DialogueScene(Scene):
         pygame.draw.rect(screen, (255, 236, 161), pygame.Rect(35, 570, 440, 115))
         offset = 0
         for item in self.text:
-            print(item)
             render_text = self.font.render(item, True, BLACK)
             screen.blit(render_text, (42, 575+offset))
             offset += 20
