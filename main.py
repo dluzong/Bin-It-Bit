@@ -4,6 +4,8 @@ import sys
 from cutscenes import *
 from button import Button
 
+from game import Game
+
 SCREENWIDTH, SCREENHEIGHT = 500,700
 FPS = 60
 
@@ -20,10 +22,11 @@ class Manager:
         self.gameStateManager = GameStateManager('menu')
         self.menu = Menu(self.screen, self.gameStateManager)
         self.cutscene = Cutscene(self.screen, self.gameStateManager)
+        self.game = Game(self.screen, SCREEN_WIDTH, SCREEN_HEIGHT, self.gameStateManager)
         self.ending = Ending(self.screen, self.gameStateManager)
         self.gameOver = GameOver(self.screen, self.gameStateManager)
         
-        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'ending':self.ending, 'gameOver':self.gameOver}
+        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'game':self.game, 'ending':self.ending, 'gameOver':self.gameOver}
         
     def run(self):
         while True:
