@@ -1,8 +1,8 @@
 import pygame
 import sys
-import time
 
 from cutscenes import *
+from info import *
 from button import Button
 from sine import *
 
@@ -25,11 +25,12 @@ class Manager:
         self.gameStateManager = GameStateManager('menu') #the app should start at the menu
         self.menu = Menu(self.screen, self.gameStateManager)
         self.cutscene = Cutscene(self.screen, self.gameStateManager)
+        self.info = Info(self.screen, self.gameStateManager)
         self.gameplay = Game(self.screen, SCREEN_WIDTH, SCREEN_HEIGHT, self.gameStateManager)
         self.ending = Ending(self.screen, self.gameStateManager)
         self.gameOver = GameOver(self.screen, self.gameStateManager)
         
-        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
+        self.states = {'menu':self.menu, 'cutscene':self.cutscene, 'info':self.info, 'gameplay':self.gameplay, 'ending':self.ending, 'gameOver':self.gameOver}
         
     def run(self):
         while True:
@@ -135,8 +136,10 @@ class Menu:
                     self.gameStateManager.set_state('cutscene')
                 if self.INDEX_BUTTON.checkForInput(MENU_MOUSE_POS):
                     print("go to index state")
+                    #self.gameStateManager.set_state('index')
                 if self.INFO_BUTTON.checkForInput(MENU_MOUSE_POS):
                     print("go to info")
+                    self.gameStateManager.set_state('info')
                 if self.QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
