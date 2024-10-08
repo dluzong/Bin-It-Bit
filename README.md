@@ -14,10 +14,11 @@ _Clare Miflin, director of the Center for Zero Waste Design._
 <div align="center">
 <img src="assets/gameplay.gif" width="350px">
 </div>
+
 ---
 
 ## ❓ **How to Play**
-<img src="assets/menu.gif" align="right" width="300px">
+<img src="assets/menu.gif" align="right" width="280px">
 - At game launch, there is a menu with the options to start game, see recyclable index, and an option to learn more information about recycling guidelines.
 
 - Users play a mini game where they catch following obstacles (pieces of trash) using the appropriate bin for the given trash type
@@ -28,7 +29,7 @@ _Clare Miflin, director of the Center for Zero Waste Design._
 - Users gain points for collecting trash in the correct bins, and lose points if they fail to catch the falling trash or put it in the correct bin
 
 - Users get a ending screen after gaining or losing points at a given threshold
----
+
 
 ## 💻 **How to Install**
 
