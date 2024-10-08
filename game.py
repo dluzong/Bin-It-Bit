@@ -172,7 +172,7 @@ class Game:
             # check if game ends
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
+                    pygame.quit() 
                     self.running = False
 
                 if self.obstacle_counter >= 10:
