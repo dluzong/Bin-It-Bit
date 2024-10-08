@@ -11,10 +11,11 @@ _Clare Miflin, director of the Center for Zero Waste Design._
 
 > This game is intended to appeal to younger audiences. 
 
-<img src="assets/gameplay.gif" width="70%" align="center">
+<img src="assets/gameplay.gif" width="400px" align="center">
+---
 
 ## ❓ **How to Play**
-<img src="assets/menu.gif" align="right" width="250px">
+<img src="assets/menu.gif" align="right" width="400px">
 - At game launch, there is a menu with the options to start game, see recyclable index, and an option to learn more information about recycling guidelines.
 
 - Users play a mini game where they catch following obstacles (pieces of trash) using the appropriate bin for the given trash type
